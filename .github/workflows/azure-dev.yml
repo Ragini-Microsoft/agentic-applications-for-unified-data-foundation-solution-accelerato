@@ -13,7 +13,7 @@ permissions:
 jobs:
   template_validation_job:
     runs-on: ubuntu-latest
-    environment: production
+    # environment: production  # Removed - using branch-based federation instead
     name: Template validation
 
     steps:
