@@ -21,7 +21,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Step 2: Validate the Azure template using microsoft/template-validation-action
+      # Step 2: Lint JSON files for formatting issues
+      - name: Lint JSON files
+        run: |
+          npm install -g jsonlint
+          echo "Validating JSON files in infra/..."
+          for file in infra/*.json; do
+            echo "Checking $file"
+            jsonlint -q "$file"
+          done
+          echo "All JSON files are valid"
+
+      # Step 3: Validate the Azure template using microsoft/template-validation-action
       - name: Validate Azure Template
         uses: microsoft/template-validation-action@v0.4.3
         id: validation
@@ -35,6 +46,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEPLOYING_USER_PRINCIPAL_TYPE: ServicePrincipal
 
-      # Step 3: Print the result of the validation
+      # Step 4: Print the result of the validation
       - name: Print result
         run: cat ${{ steps.validation.outputs.resultFile }}
