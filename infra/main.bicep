@@ -51,7 +51,7 @@ param gptModelName string = 'gpt-4.1-mini'
 @description('Version of the GPT model to deploy:')
 param gptModelVersion string = '2025-04-14'
 
-param azureOpenAIApiVersion string = '2025-01-01-preview'
+param azureOpenAIApiVersion string
 
 param azureAiAgentApiVersion string = '2025-05-01'
 
